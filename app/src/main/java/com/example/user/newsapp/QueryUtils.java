@@ -170,17 +170,17 @@ public class QueryUtils {
 
             // Extract the JSONArray associated with the key called "features",
             // which represents a list of features (or earthquakes).
-            JSONArray newsArray = baseJsonResponse.getJSONArray("results");
+            JSONArray newsArray = baseJsonResponse.getJSONArray("response");
 
             for (int i = 0; i < newsArray.length();i++){
                 JSONObject currentNews = newsArray.getJSONObject(i);
-                JSONObject response = currentNews.getJSONObject("response");
+                JSONObject results = currentNews.getJSONObject("results");
 
-                String title = response.getString("webTitle");
-                String author = response.optString("author");
-                String section= response.getString("sectionName");
-                String url = response.getString("webUrl");
-                String date= response.getString("webPublicationDate");
+                String title = results.optString("webTitle");
+                String author = results.optString("author");
+                String section= results.optString("sectionName");
+                String url = results.optString("webUrl");
+                String date= results.optString("webPublicationDate");
                 date= formatDate(date);
 
                 News news1 = new News(title, author, section, date,url);
@@ -191,7 +191,7 @@ public class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
 
         // Return the list of earthquakes
