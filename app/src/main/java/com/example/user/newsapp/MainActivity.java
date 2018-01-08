@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      */
     private static final String NEWS_REQUEST_URL =
             "http://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
+
+    private static final String TEST_REQUEST_URL = "https://api.github.com/search/users?q=location:lagos+language:java";
 
     private static final String LOG_TAG = MainActivity.class.getName();
 
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         mAdapter.clear();
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
+
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
         }
