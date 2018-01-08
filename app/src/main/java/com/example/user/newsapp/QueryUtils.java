@@ -154,6 +154,7 @@ public class QueryUtils {
 
     private static List<News> extractFeatureFromJson(String newsJSON) {
         // If the JSON string is empty or null, then return early.
+        Log.d("Network", "fetchNewsData: "+newsJSON);
         if (TextUtils.isEmpty(newsJSON)) {
             return null;
         }
@@ -170,18 +171,27 @@ public class QueryUtils {
 
             // Extract the JSONArray associated with the key called "features",
             // which represents a list of features (or earthquakes).
-            JSONArray newsArray = baseJsonResponse.getJSONArray("response");
+            JSONObject newResponseObject = baseJsonResponse.getJSONObject("response"); //This line is getting a json Object not Json Array
 
-            for (int i = 0; i < newsArray.length();i++){
-                JSONObject currentNews = newsArray.getJSONObject(i);
-                JSONObject results = currentNews.getJSONObject("results");
+            /* Tranversing the node of the json Response
+             *
+              * Afetr getting the response object.
+              *
+              * get the rsultArray before the loop on the array
+              *
+              * */
+            JSONArray newsResultArray = newResponseObject.getJSONArray("results");
 
-                String title = results.optString("webTitle");
-                String author = results.optString("author");
-                String section= results.optString("sectionName");
-                String url = results.optString("webUrl");
-                String date= results.optString("webPublicationDate");
-                date= formatDate(date);
+            for (int i = 0; i < newsResultArray.length();i++){
+                JSONObject currentNews = newsResultArray.getJSONObject(i);
+
+
+                String title = currentNews.optString("webTitle");
+                String author = currentNews.optString("author");
+                String section= currentNews.optString("sectionName");
+                String url = currentNews.optString("webUrl");
+                String date= currentNews.optString("webPublicationDate");
+//                date= formatDate(date);
 
                 News news1 = new News(title, author, section, date,url);
                 news.add(news1);
