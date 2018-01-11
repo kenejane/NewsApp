@@ -205,7 +205,7 @@ public class QueryUtils {
                 String section= currentNews.optString("sectionName");
                 String url = currentNews.optString("webUrl");
                 String date= currentNews.optString("webPublicationDate");
-//                date= formatDate(date);
+                date= formatDate(date);
 
                 News news1 = new News(title, author, section, date,url);
                 news.add(news1);
