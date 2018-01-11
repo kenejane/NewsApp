@@ -79,8 +79,19 @@ public class QueryUtils {
     }
 
     private static  String formatDate(String dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
-        return dateFormat.format(dateObject);
+        String dateOutputPattern = "LLL dd, yyyy";
+        String dateInputPattern = "yyyy-mm-dd'T'hh:mm:ss'Z'";
+        SimpleDateFormat dateInputFormat = new SimpleDateFormat(dateInputPattern);
+        SimpleDateFormat dateOutPutFormat = new SimpleDateFormat(dateOutputPattern);
+        try{
+          Date date = dateInputFormat.parse(dateObject);
+            String dateToDisplay = dateOutPutFormat.format(date);
+            return dateToDisplay;
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Date Unvailable";
+        }
+
     }
 
     /**

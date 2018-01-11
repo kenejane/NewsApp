@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      * URL for earthquake data from the USGS dataset
      */
     private static final String NEWS_REQUEST_URL =
-            "http://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
+            "http://content.guardianapis.com/search?q=debate&tag=politics/politics&api-key=test";
 
-    private static final String TEST_REQUEST_URL = "https://api.github.com/search/users?q=location:lagos+language:java";
+//    private static final String TEST_REQUEST_URL = "https://api.github.com/search/users?q=location:lagos+language:java";
 
     private static final String LOG_TAG = MainActivity.class.getName();
 
