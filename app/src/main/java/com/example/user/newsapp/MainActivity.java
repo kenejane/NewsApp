@@ -2,6 +2,7 @@ package com.example.user.newsapp;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.Loader;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      */
     private NewsAdapter mAdapter;
     SwipeRefreshLayout swipe;
-
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,11 +96,20 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
+        pd = new ProgressDialog(MainActivity.this);
+        pd.setTitle("Processing...");
+        pd.setMessage("Please Wait.");
+        pd.setCancelable(false);
+        pd.setIndeterminate(true);
+        pd.show();
         return new NewsLoader(this, NEWS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
+
+        //stop the progres dialog
+        pd.dismiss();
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's

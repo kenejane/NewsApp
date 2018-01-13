@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Long.getLong;
 
@@ -79,11 +80,12 @@ import static java.lang.Long.getLong;
         private static  String formatDate(String dateObject) {
             String dateOutputPattern = "LLL dd, yyyy";
             String dateInputPattern = "yyyy-mm-dd'T'hh:mm:ss'Z'";
-            SimpleDateFormat dateInputFormat = new SimpleDateFormat(dateInputPattern);
-            SimpleDateFormat dateOutPutFormat = new SimpleDateFormat(dateOutputPattern);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(dateInputPattern, Locale.ENGLISH);
+
             try{
-                Date date = dateInputFormat.parse(dateObject);
-                String dateToDisplay = dateOutPutFormat.format(date);
+                Date date = dateFormat.parse(dateObject);
+                dateFormat.applyPattern(dateOutputPattern);
+                String dateToDisplay = dateFormat.format(date);
                 return dateToDisplay;
             }catch (Exception e){
                 e.printStackTrace();
